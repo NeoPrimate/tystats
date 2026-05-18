@@ -1,0 +1,20 @@
+[package]
+name = "tystats"
+version = "0.1.0"
+entrypoint = "tystats.typ"
+authors = ["Vladimir Borel <vladimirborel@icloud.com>"]
+license = "MIT"
+description = "scipy.stats-style probability distributions for Typst, backed by statrs"
+repository = "https://github.com/NeoPrimate/tystats"
+keywords = ["statistics", "scipy", "distributions", "probability", "wasm"]
+categories = ["scripting"]
+compiler = "0.13.0"
+exclude = [
+  "src",
+  "Cargo.toml",
+  "Cargo.lock",
+  "build.sh",
+  "target",
+  ".github",
+  ".gitignore",
+]

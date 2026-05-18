@@ -1,0 +1,13 @@
+#import "dists/norm.typ"
+#import "dists/expon.typ"
+#import "dists/uniform.typ"
+#import "dists/lognorm.typ"
+#import "dists/gamma.typ"
+#import "dists/beta.typ"
+#import "dists/chi2.typ"
+#import "dists/t.typ"
+
+#import "dists/poisson.typ"
+#import "dists/binom.typ"
+#import "dists/geom.typ"
+#import "dists/bernoulli.typ"

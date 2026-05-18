@@ -1,0 +1,23 @@
+[package]
+name = "tystats"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+statrs = "0.18"
+rand = { version = "0.8", default-features = false }
+rand_chacha = { version = "0.3", default-features = false }
+ciborium = "0.2"
+serde = { version = "1", features = ["derive"] }
+wasm-minimal-protocol = "0.1"
+getrandom = { version = "0.2", features = ["custom"] }
+
+[profile.release]
+opt-level = "z"
+lto = true
+strip = true
+codegen-units = 1
+panic = "abort"

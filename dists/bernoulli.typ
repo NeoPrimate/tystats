@@ -3,6 +3,7 @@
 #let pmf(x, p) = core.scalar("pmf", "bernoulli", x, (p,))
 #let cdf(x, p) = core.scalar("cdf", "bernoulli", x, (p,))
 #let sf(x, p)  = core.scalar("sf",  "bernoulli", x, (p,))
+#let ppf(q, p) = core.scalar("ppf", "bernoulli", q, (p,))
 #let mean(p)   = core.moment("mean",   "bernoulli", (p,))
 #let var(p)    = core.moment("var",    "bernoulli", (p,))
 #let sd(p)     = core.moment("sd",     "bernoulli", (p,))

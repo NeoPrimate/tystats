@@ -3,6 +3,7 @@
 #let pmf(x, n, p) = core.scalar("pmf", "binom", x, (p, n))
 #let cdf(x, n, p) = core.scalar("cdf", "binom", x, (p, n))
 #let sf(x, n, p)  = core.scalar("sf",  "binom", x, (p, n))
+#let ppf(q, n, p) = core.scalar("ppf", "binom", q, (p, n))
 #let mean(n, p)   = core.moment("mean",   "binom", (p, n))
 #let var(n, p)    = core.moment("var",    "binom", (p, n))
 #let sd(n, p)     = core.moment("sd",     "binom", (p, n))

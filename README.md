@@ -77,6 +77,74 @@ Typst's WASM sandbox.
 #norm.rvs(size: 5, seed: 1)        // a different deterministic sequence
 ```
 
+## Local testing via symlink
+
+To use a checked-out copy of this repo as if it were an installed package
+(handy when iterating on the package itself or testing changes before
+release), symlink the repo into Typst's local-packages directory. Typst
+resolves `@local/<name>:<version>` to
+`{data-dir}/typst/packages/local/<name>/<version>`. The data directory is
+platform-specific:
+
+- macOS: `~/Library/Application Support`
+- Linux: `$XDG_DATA_HOME` or `~/.local/share`
+- Windows: `%APPDATA%`
+
+### macOS / Linux
+
+```sh
+# Adjust the source path to wherever you cloned the repo.
+# Adjust 0.1.0 to match the `version` field in typst.toml.
+PKG_DIR="$HOME/Library/Application Support/typst/packages/local/tystats"   # macOS
+# PKG_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/typst/packages/local/tystats"  # Linux
+
+mkdir -p "$PKG_DIR"
+ln -s "$(pwd)" "$PKG_DIR/0.1.0"
+```
+
+Then from any document:
+
+```typst
+#import "@local/tystats:0.1.0": norm, binom
+```
+
+Edits to files in the cloned repo are picked up immediately on the next
+`typst compile` — no reinstall step. When you bump `version` in
+`typst.toml`, also rename the symlink (or create a new one alongside) so
+the directory name matches.
+
+### Windows (PowerShell, run as administrator)
+
+```powershell
+$pkg = "$env:APPDATA\typst\packages\local\tystats"
+New-Item -ItemType Directory -Force -Path $pkg | Out-Null
+New-Item -ItemType SymbolicLink -Path "$pkg\0.1.0" -Target (Get-Location)
+```
+
+### Removing the symlink
+
+When you're done testing locally — or before installing the real package
+from Universe — remove the symlink so Typst falls back to the published
+version:
+
+```sh
+# macOS
+rm "$HOME/Library/Application Support/typst/packages/local/tystats/0.1.0"
+
+# Linux
+rm "${XDG_DATA_HOME:-$HOME/.local/share}/typst/packages/local/tystats/0.1.0"
+```
+
+```powershell
+# Windows
+Remove-Item "$env:APPDATA\typst\packages\local\tystats\0.1.0"
+```
+
+Use plain `rm` (not `rm -rf`) — the target is a symlink, not a directory
+tree, so a regular `rm` removes only the link and leaves your cloned repo
+untouched. If the `tystats` parent directory is now empty, you can
+`rmdir` it as well, but leaving it is harmless.
+
 ## Building from source
 
 The Rust source for the WASM plugin lives in `src/lib.rs`. To rebuild:

@@ -3,7 +3,7 @@ use rand_chacha::ChaCha20Rng;
 use serde::{Deserialize, Serialize};
 use statrs::distribution::{
     Bernoulli, Beta, Binomial, ChiSquared, Continuous, ContinuousCDF, Discrete, DiscreteCDF, Exp,
-    Gamma, Geometric, LogNormal, Normal, Poisson, StudentsT, Uniform,
+    FisherSnedecor, Gamma, Geometric, LogNormal, Normal, Poisson, StudentsT, Uniform,
 };
 use statrs::statistics::Distribution as Moments;
 use wasm_minimal_protocol::*;
@@ -120,6 +120,10 @@ fn dispatch(req: &Req) -> Result<Res, String> {
             req,
         ),
         "chi2" => cont(ChiSquared::new(param(req, 0)?).map_err(build_err)?, req),
+        "f" => cont(
+            FisherSnedecor::new(param(req, 0)?, param(req, 1)?).map_err(build_err)?,
+            req,
+        ),
         "t" => cont(
             StudentsT::new(param(req, 0)?, param(req, 1)?, param(req, 2)?)
                 .map_err(build_err)?,

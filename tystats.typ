@@ -5,6 +5,7 @@
 #import "dists/gamma.typ"
 #import "dists/beta.typ"
 #import "dists/chi2.typ"
+#import "dists/f.typ"
 #import "dists/t.typ"
 
 #import "dists/poisson.typ"
